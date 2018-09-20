@@ -1,0 +1,70 @@
+<!--
+
+    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<settings>
+  <proxies>
+    <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+        <host></host>
+        <port></port>
+        <nonProxyHosts></nonProxyHosts>
+    </proxy>
+    <proxy>
+      <active>true</active>
+      <protocol>https</protocol>
+        <host></host>
+        <port></port>
+        <nonProxyHosts></nonProxyHosts>
+    </proxy>
+  </proxies>
+<profiles>
+<profile>
+<id>default</id>
+<repositories>
+    <repository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+</profile>
+</profiles>
+</settings>

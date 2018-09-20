@@ -1,0 +1,88 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<!--
+
+    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<suite name="CDI TCK" verbose="0" configfailurepolicy="continue" useDefaultListeners="false">
+
+    <listeners>
+        <!-- Required - avoid randomly mixed test method execution -->
+        <listener class-name="org.jboss.cdi.tck.impl.testng.SingleTestClassMethodInterceptor"/>
+        <!-- Optional - intended for debug purpose only -->
+        <listener class-name="org.jboss.cdi.tck.impl.testng.ConfigurationLoggingListener"/>
+        <listener class-name="org.jboss.cdi.tck.impl.testng.ProgressLoggingTestListener"/>
+        <!-- Optional - it's recommended to disable the default JUnit XML reporter -->
+        <listener class-name="org.testng.reporters.SuiteHTMLReporter"/>
+        <listener class-name="org.testng.reporters.FailedReporter"/>
+        <listener class-name="org.testng.reporters.XMLReporter"/>
+        <listener class-name="org.testng.reporters.EmailableReporter"/>
+        <listener class-name="org.testng.reporters.TestHTMLReporter"/>
+    </listeners>
+
+    <test name="CDI TCK">
+
+        <packages>
+            <package name="org.jboss.cdi.tck.tests.*"/>
+            <package name="org.jboss.cdi.tck.interceptors.tests.*"/>
+        </packages>
+
+        <classes>
+
+            <!-- Issues in the spec -->
+            <!-- CDI-437 -->
+            <class name="org.jboss.cdi.tck.tests.lookup.byname.ambiguous.broken.AmbiguousELNamesTest">
+                <methods>
+                    <exclude name=".*"/>
+                </methods>
+            </class>
+
+            <!-- CDITCK-421 -->
+            <class name="org.jboss.cdi.tck.interceptors.tests.contract.aroundInvoke.AroundInvokeAccessInterceptorTest">
+                <methods>
+                    <exclude name=".*"/>
+                </methods>
+            </class>
+
+            <class name="org.jboss.cdi.tck.interceptors.tests.contract.aroundTimeout.AroundTimeoutInterceptorTest">
+                <methods>
+                    <exclude name=".*"/>
+                </methods>
+            </class>
+
+            <!-- CDITCK-426 -->
+            <class name="org.jboss.cdi.tck.tests.event.observer.transactional.TransactionalObserverTest">
+                <methods>
+                    <exclude name="testFailedTransaction"/>
+                    <exclude name="testSucessfullTransaction"/>
+                    <exclude name="testObserverFailedTransaction"/>
+                </methods>
+            </class>
+
+
+            <!-- Issues in GlassFish  -->
+            <!-- This is a bug in GlassFish ejb container. See -->
+            <class name="org.jboss.cdi.tck.tests.event.observer.resolve.enterprise.ResolveEnterpriseEventObserverTest">
+            <methods>
+            <exclude name="testObserverMethodOnEnterpriseBeanIsBusinessMethodOrStatic"/>
+            </methods>
+            </class>
+
+        </classes>
+
+    </test>
+
+</suite>
