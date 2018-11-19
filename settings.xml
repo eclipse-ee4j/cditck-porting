@@ -17,22 +17,6 @@
 -->
 
 <settings>
-  <proxies>
-    <proxy>
-      <active>true</active>
-      <protocol>http</protocol>
-        <host></host>
-        <port></port>
-        <nonProxyHosts></nonProxyHosts>
-    </proxy>
-    <proxy>
-      <active>true</active>
-      <protocol>https</protocol>
-        <host></host>
-        <port></port>
-        <nonProxyHosts></nonProxyHosts>
-    </proxy>
-  </proxies>
 <profiles>
 <profile>
 <id>default</id>
