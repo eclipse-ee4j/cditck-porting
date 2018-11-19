@@ -46,6 +46,7 @@ sed -i "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
 
 #Run Tests
 cd ${TS_HOME}
+export MAVEN_OPTS="-Duser.home=$HOME $MAVEN_OPTS"
 ant -Duser.home=$HOME sigtest
 ant -Duser.home=$HOME test
 
