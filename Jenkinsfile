@@ -51,14 +51,12 @@ spec:
   }
   parameters {
     string(name: 'GF_BUNDLE_URL', 
-           defaultValue: 'https://repo1.maven.org/maven2/org/glassfish/main/distributions/glassfish/5.1.0-RC1/glassfish-5.1.0-RC1.zip',
+           defaultValue: 'https://download.eclipse.org/ee4j/jakartaee-tck/8.0.1/nightly/glassfish.zip',
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
   }
   environment {
-    JAVA_HOME = "/opt/jdk1.8.0_171/"
     ANT_HOME = "/usr/share/ant"
     MAVEN_HOME = "/usr/share/maven"
-    PATH = "${MAVEN_HOME}/bin:${ANT_HOME}/bin:${JAVA_HOME}/bin:${PATH}"
     ANT_OPTS = "-Djavax.xml.accessExternalStylesheet=all -Djavax.xml.accessExternalSchema=all -Djavax.xml.accessExternalDTD=file,http" 
   }
   stages {
