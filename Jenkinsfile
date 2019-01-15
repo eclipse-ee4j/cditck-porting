@@ -53,6 +53,8 @@ spec:
     string(name: 'GF_BUNDLE_URL', 
            defaultValue: 'https://download.eclipse.org/ee4j/jakartaee-tck/8.0.1/nightly/glassfish.zip',
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
+    choice(name: 'PROFILE', choices: 'FULL\nWEB', 
+           description: 'Profile to be used for running CTS either web/full' )
   }
   environment {
     ANT_HOME = "/usr/share/ant"
