@@ -5,4 +5,10 @@ grant {
    permission javax.security.auth.AuthPermission "modifyPrincipals"; 
    permission java.io.SerializablePermission "enableSubclassImplementation"; 
    permission java.lang.RuntimePermission "accessClassInPackage.com.sun.proxy"; 
-}; 
+   permission java.io.FilePermission       "<<ALL FILES>>", "delete";
+};
+
+grant  codeBase "file:${com.sun.aas.instanceRoot}/applications/-"{
+   permission java.security.AllPermission;
+};
+

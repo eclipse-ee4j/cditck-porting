@@ -408,6 +408,8 @@
             <java classname="org.apache.derby.drda.NetworkServerControl"
                  classpath="${javadb.home}/lib/derby.jar${pathsep}${javadb.home}/lib/derbynet.jar${pathsep}${javadb.home}/lib/derbytools.jar${pathsep}${javadb.home}/lib/derbyclient.jar" fork="true" spawn="true">
                 <sysproperty key="derby.system.home" value="${javadb.home}/databases"/>
+                <sysproperty key="java.security.manager" value=""/>
+                <sysproperty key="java.security.policy" value="${glassfish.home}/domains/domain1/config/server.policy"/>
                 <arg line="-h ${javadb.host} -p ${javadb.port} start"/>
             </java>
             <sleep seconds="4"/>
