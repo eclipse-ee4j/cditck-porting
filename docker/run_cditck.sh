@@ -40,7 +40,11 @@ cat ${WORKSPACE}/docker/CDI.policy >> ${WORKSPACE}/glassfish5/glassfish/domains/
 #Edit test properties
 sed -i "s#porting.home=.*#porting.home=${TS_HOME}#g" ${TS_HOME}/build.properties
 sed -i "s#glassfish.home=.*#glassfish.home=${WORKSPACE}/glassfish5/glassfish#g" ${TS_HOME}/build.properties
-sed -i "s#javaee.level=.*#javaee.level=full#g" ${TS_HOME}/build.properties
+if [[ "${PROFILE}" == "web" || "${PROFILE}" == "WEB" ]]; then
+  sed -i "s#javaee.level=.*#javaee.level=web#g" ${TS_HOME}/build.properties
+else
+  sed -i "s#javaee.level=.*#javaee.level=full#g" ${TS_HOME}/build.properties
+fi
 sed -i "s#report.dir=.*#report.dir=${REPORT}#g" ${TS_HOME}/build.properties
 sed -i "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
 
@@ -55,6 +59,26 @@ echo "<pre>" > ${REPORT}/cdi-$VER-sig/report.html
 cat $REPORT/cdi_sig_test_results.txt >> $REPORT/cdi-$VER-sig/report.html
 echo "</pre>" >> $REPORT/cdi-$VER-sig/report.html
 cp $REPORT/cdi-$VER-sig/report.html $REPORT/cdi-$VER-sig/index.html
+
+mv ${REPORT}/cdi-$VER/TEST-TestSuite.xml  ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
+sed -i 's/name=\"TestSuite\"/name="cditck-2.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
+
+# Create Junit formated file for sigtests
+echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-2.0.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '<testcase classname="CDISigTest" name="cdiSigTest" time="0"/>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '</testsuite>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+
+# Fill appropriate test counts
+if [ -f "$REPORT/cdi-$VER-sig/report.html" ]; then
+  if grep -q STATUS:Passed "$REPORT/cdi-$VER-sig/report.html"; then
+    sed -i 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i 's/failures=\"FAILED\"/tests="0"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+  else 
+    sed -i 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i 's/failures=\"FAILED\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+  fi
+fi
 
 cp -R ${TS_HOME}/glassfish-tck-runner/target/surefire-reports/* ${REPORT}/cdi-${VER}
 cp ${REPORT}/cdi-$VER/test-report.html ${REPORT}/cdi-${VER}/report.html
