@@ -60,15 +60,14 @@ cat $REPORT/cdi_sig_test_results.txt >> $REPORT/cdi-$VER-sig/report.html
 echo "</pre>" >> $REPORT/cdi-$VER-sig/report.html
 cp $REPORT/cdi-$VER-sig/report.html $REPORT/cdi-$VER-sig/index.html
 
-mv ${REPORT}/cdi-$VER/TEST-TestSuite.xml  ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
-sed -i 's/name=\"TestSuite\"/name="cditck-2.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
-
+# Copy the test reports to the report directory
 cp -R ${TS_HOME}/glassfish-tck-runner/target/surefire-reports/* ${REPORT}/cdi-${VER}
-
 if [[ -f ${REPORT}/cdi-$VER/test-report.html ]];then
   cp ${REPORT}/cdi-$VER/test-report.html ${REPORT}/cdi-${VER}/report.html
 fi
 
+mv ${REPORT}/cdi-$VER/TEST-TestSuite.xml  ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
+sed -i 's/name=\"TestSuite\"/name="cditck-2.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
 # Create Junit formated file for sigtests
 echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-2.0.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
