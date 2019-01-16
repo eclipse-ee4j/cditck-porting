@@ -63,6 +63,12 @@ cp $REPORT/cdi-$VER-sig/report.html $REPORT/cdi-$VER-sig/index.html
 mv ${REPORT}/cdi-$VER/TEST-TestSuite.xml  ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
 sed -i 's/name=\"TestSuite\"/name="cditck-2.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
 
+cp -R ${TS_HOME}/glassfish-tck-runner/target/surefire-reports/* ${REPORT}/cdi-${VER}
+
+if [[ -f ${REPORT}/cdi-$VER/test-report.html ]];then
+  cp ${REPORT}/cdi-$VER/test-report.html ${REPORT}/cdi-${VER}/report.html
+fi
+
 # Create Junit formated file for sigtests
 echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-2.0.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
@@ -79,8 +85,5 @@ if [ -f "$REPORT/cdi-$VER-sig/report.html" ]; then
     sed -i 's/failures=\"FAILED\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
   fi
 fi
-
-cp -R ${TS_HOME}/glassfish-tck-runner/target/surefire-reports/* ${REPORT}/cdi-${VER}
-cp ${REPORT}/cdi-$VER/test-report.html ${REPORT}/cdi-${VER}/report.html
 
 tar zcvf ${WORKSPACE}/cdi-tck-results.tar.gz ${REPORT} ${WORK}
