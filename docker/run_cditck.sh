@@ -78,10 +78,10 @@ echo '</testsuite>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 if [ -f "$REPORT/cdi-$VER-sig/report.html" ]; then
   if grep -q STATUS:Passed "$REPORT/cdi-$VER-sig/report.html"; then
     sed -i 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-    sed -i 's/failures=\"FAILED\"/tests="0"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i 's/failures=\"FAILED\"/failures="0"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
   else 
     sed -i 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-    sed -i 's/failures=\"FAILED\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i 's/failures=\"FAILED\"/failures="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
   fi
 fi
 
