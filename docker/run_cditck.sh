@@ -71,7 +71,11 @@ sed -i 's/name=\"TestSuite\"/name="cditck-2.0"/g' ${REPORT}/cdi-$VER/cditck-$VER
 # Create Junit formated file for sigtests
 echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-2.0.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-echo '<testcase classname="CDISigTest" name="cdiSigTest" time="0"/>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '<testcase classname="CDISigTest" name="cdiSigTest" time="0.2">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '  <system-out>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+cat $REPORT/cdi_sig_test_results.txt >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '  </system-out>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '</testcase>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '</testsuite>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 
 # Fill appropriate test counts

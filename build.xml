@@ -129,7 +129,7 @@
                 <java outputproperty="sigoutput" fork="true" jar="${lib}/sigtest.jar">
 			<arg value="Signaturetest"/>
                         <arg value="-Classpath"/>
-                        <arg value="${java.home}/${java.classes.for.sig.ext}${pathsep}${glassfish.home}/modules/weld-osgi-bundle.jar${pathsep}${glassfish.home}/modules/cdi-api.jar${pathsep}${glassfish.home}/modules/javax.inject.jar${pathsep}${glassfish.home}/modules/javax.el.jar/${pathsep}${glassfish.home}/modules/javax.inject.jar${pathsep}${glassfish.home}/modules/javax.interceptor-api.jar${aix.jars}"/>
+                        <arg value="${java.home}/${java.classes.for.sig.ext}${pathsep}${glassfish.home}/modules/weld-osgi-bundle.jar${pathsep}${glassfish.home}/modules/cdi-api.jar${pathsep}${glassfish.home}/modules/jakarta.inject.jar${pathsep}${glassfish.home}/modules/jakarta.el.jar/${pathsep}${glassfish.home}/modules/jakarta.interceptor-api.jar${aix.jars}"/>
                         <arg value="-Package"/>
                         <arg value="javax.enterprise"/>
                         <arg value="-Package"/>
