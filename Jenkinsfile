@@ -81,7 +81,7 @@ spec:
             env
             bash -x ${WORKSPACE}/docker/run_cditck.sh
           """
-          archiveArtifacts artifacts: "cdi-tck-results.tar.gz"
+          archiveArtifacts artifacts: "cdi-tck-results.tar.gz,cdi-tck-report/**/*.xml,cdi-tck-report/**/*.html"
           junit testResults: 'cdi-tck-report/**/*.xml', allowEmptyResults: true
         }
       }
