@@ -55,6 +55,12 @@ spec:
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
+	string(name: 'TCK_BUNDLE_BASE_URL',
+           defaultValue: '',
+           description: 'Base URL required for downloading prebuilt binary TCK Bundle from a hosted location' )
+    string(name: 'TCK_BUNDLE_FILE_NAME', 
+           defaultValue: 'javamailtck-1.6_latest.zip', 
+	   description: 'Name of bundle file to be appended to the base url' )
   }
   environment {
     ANT_HOME = "/usr/share/ant"
