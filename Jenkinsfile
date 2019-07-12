@@ -59,7 +59,7 @@ spec:
            defaultValue: '',
            description: 'Base URL required for downloading prebuilt binary TCK Bundle from a hosted location' )
     string(name: 'TCK_BUNDLE_FILE_NAME', 
-           defaultValue: 'cdi-tck-glassfish-porting-2.0_latest.zip', 
+           defaultValue: 'javamailtck-1.6_latest.zip', 
 	   description: 'Name of bundle file to be appended to the base url' )
   }
   environment {
