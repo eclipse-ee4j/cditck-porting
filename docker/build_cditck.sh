@@ -46,10 +46,10 @@ if [ ! -z "$TCK_BUNDLE_BASE_URL" ]; then
 fi
 chmod 777 ${WORKSPACE}/dist/*.zip
 cd ${WORKSPACE}/dist/
-for entry in `ls cdi-tck-glassfish-porting-2.0_*.zip`; do
+for entry in `ls cdi-tck-glassfish-porting-2.0.0.zip`; do
   date=`echo "$entry" | cut -d_ -f2`
   strippedEntry=`echo "$entry" | cut -d_ -f1`
   echo "copying ${WORKSPACE}/dist/$entry to ${WORKSPACE}/bundles/${strippedEntry}_latest.zip"
-  cp ${WORKSPACE}/dist/$entry ${WORKSPACE}/bundles/${strippedEntry}_latest.zip
-  chmod 777 ${WORKSPACE}/bundles/${strippedEntry}_latest.zip
+  cp ${WORKSPACE}/dist/$entry ${WORKSPACE}/bundles/${strippedEntry}.zip
+  chmod 777 ${WORKSPACE}/bundles/${strippedEntry}.zip
 done
