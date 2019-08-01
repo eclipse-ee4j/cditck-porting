@@ -56,7 +56,7 @@ spec:
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
 	string(name: 'TCK_BUNDLE_FILE_NAME', 
-           defaultValue: 'cdi-tck-glassfish-porting-2.0.0.zip', 
+           defaultValue: 'cdi-tck-glassfish-porting-2.0_latest.zip', 
 	   description: 'Name of bundle file to be appended to the base url' )
   }
   environment {
