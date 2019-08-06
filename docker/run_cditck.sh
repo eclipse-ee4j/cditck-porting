@@ -16,7 +16,7 @@
 
 
 
-VER="2.0"
+VER="2.0.0"
 if ls ${WORKSPACE}/bundles/*cdi-tck*.zip 1> /dev/null 2>&1; then
   unzip -o ${WORKSPACE}/bundles/*cdi-tck*.zip -d ${WORKSPACE}
 else
