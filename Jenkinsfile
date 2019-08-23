@@ -65,7 +65,7 @@ spec:
              defaultValue: '2.0.6', 
              description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
-             defaultValue: 'http://download.eclipse.org/ee4j/jakartaee-tck/jakartaee8/promoted/', 
+             defaultValue: '', 
              description: 'url of porting kit bundle file' )
   }
   environment {
