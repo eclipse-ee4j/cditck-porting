@@ -31,6 +31,58 @@ echo "Download and install GlassFish 5.0.1 ..."
 wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O latest-glassfish.zip
 unzip -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
+if [ -z "${CDI_TCK_VERSION}" ]; then
+  CDI_TCK_VERSION=2.0.6	
+fi
+
+if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
+  CDI_TCK_BUNDLE_URL=http://download.eclipse.org/ee4j/cdi/cdi-tck-${CDI_TCK_VERSION}-dist.zip	
+fi
+
+#Install CDI TCK dist
+echo "Download and unzip CDI TCK dist ..."
+wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
+unzip -o ${WORKSPACE}/latest-cdi-tck-dist.zip -d ${WORKSPACE}/
+
+GROUP_ID=org.jboss.cdi.tck 
+CDI_TCK_DIST=cdi-tck-2.0.6
+
+#cp ${WORKSPACE}/${CDI_TCK_DIST}/cdi-tck-2.0.6/artifacts/cdi-tck-impl-2.0.6-suite.xml \
+	#${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-2.0.6-suite.xml
+
+
+mvn install:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-api-${CDI_TCK_VERSION}.jar \
+-DgroupId=${GROUP_ID} \
+-DartifactId=cdi-tck-api \
+-Dversion=${CDI_TCK_VERSION} \
+-Dpackaging=jar
+
+mvn install:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-${CDI_TCK_VERSION}.jar \
+-DgroupId=${GROUP_ID} \
+-DartifactId=cdi-tck-impl \
+-Dversion=${CDI_TCK_VERSION} \
+-Dpackaging=jar
+
+mvn install:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar \
+-DgroupId=${GROUP_ID} \
+-DartifactId=cdi-tck-ext-lib \
+-Dversion=${CDI_TCK_VERSION} \
+-Dpackaging=jar
+
+mvn install:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-${CDI_TCK_VERSION}-suite.xml \
+-DgroupId=${GROUP_ID} \
+-DartifactId=cdi-tck-impl \
+-Dversion=${CDI_TCK_VERSION} \
+-Dpackaging=xml
+
+mvn install:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-parent-${CDI_TCK_VERSION}.pom -DgroupId=${GROUP_ID} \
+-DartifactId=cdi-tck-parent -Dversion=${CDI_TCK_VERSION} -Dpackaging=pom
+
 which ant
 ant -version
 
@@ -52,12 +104,18 @@ else
 fi
 sed -i "s#report.dir=.*#report.dir=${REPORT}#g" ${TS_HOME}/build.properties
 sed -i "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
+sed -i "s#cdiextjar=.*#cdiextjar=cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar#g" ${TS_HOME}/build.properties
+sed -i "s#cdiext.version=.*#cdiext.version=${CDI_TCK_VERSION}#g" ${TS_HOME}/build.properties
+
+#CDI_TCK_DIST=cdi-tck-2.0.6
+cp ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests_bkup.xml 
+cp ${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-${CDI_TCK_VERSION}-suite.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml
 
 #Run Tests
 cd ${TS_HOME}
 export MAVEN_OPTS="-Duser.home=$HOME $MAVEN_OPTS"
-ant -Duser.home=$HOME sigtest
-ant -Duser.home=$HOME test
+ant $ANT_OPTS sigtest
+ant $ANT_OPTS test
 
 #Generate Reports
 echo "<pre>" > ${REPORT}/cdi-$VER-sig/report.html

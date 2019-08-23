@@ -58,11 +58,21 @@ spec:
 	string(name: 'TCK_BUNDLE_FILE_NAME', 
            defaultValue: 'cdi-tck-glassfish-porting-2.0.0.zip', 
 	   description: 'Name of bundle file to be appended to the base url' )
+	string(name: 'CDI_TCK_BUNDLE_URL', 
+             defaultValue: 'http://download.eclipse.org/ee4j/cdi/cdi-tck-2.0.6-dist.zip', 
+  	         description: 'CDI TCK bundle url' )
+    string(name: 'CDI_TCK_VERSION', 
+             defaultValue: '2.0.6', 
+             description: 'version of bundle file' )
+    string(name: 'TCK_BUNDLE_BASE_URL', 
+             defaultValue: 'http://download.eclipse.org/ee4j/jakartaee-tck/jakartaee8/promoted/cdi-tck-glassfish-porting-2.0.0.zip', 
+             description: 'url of porting kit bundle file' )
   }
   environment {
     ANT_HOME = "/usr/share/ant"
     MAVEN_HOME = "/usr/share/maven"
-    ANT_OPTS = "-Djavax.xml.accessExternalStylesheet=all -Djavax.xml.accessExternalSchema=all -Djavax.xml.accessExternalDTD=file,http" 
+    ANT_OPTS = "-Djavax.xml.accessExternalStylesheet=all -Djavax.xml.accessExternalSchema=all -Djavax.xml.accessExternalDTD=file,http -Duser.home=$HOME"
+	MAVEN_OPTS="-Duser.home=$HOME"
   }
   stages {
     stage('cdi-tck-build') {
