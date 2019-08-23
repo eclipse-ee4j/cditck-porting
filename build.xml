@@ -145,7 +145,7 @@
 	</target>
 
         <target name="copy.settingsxml">
-            <copy file="${porting.home}/settings.xml" todir="${user.home}/.m2"
+            <copy file="${porting.home}/settings.xml" todir="${env.HOME}/.m2"
                   flatten="true" overwrite="true">
             </copy>
 	</target>

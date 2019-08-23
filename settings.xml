@@ -35,6 +35,20 @@
         <updatePolicy>never</updatePolicy>
       </snapshots>
     </repository>
+	<repository>
+      <id>oss-public-repository-group</id>
+      <name>OSS Sonatype Public Repository Group</name>
+      <url>https://oss.sonatype.org/content/repositories/staging</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
   </repositories>
   <pluginRepositories>
     <pluginRepository>

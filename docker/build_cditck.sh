@@ -20,22 +20,6 @@ echo "export MAVEN_HOME=$MAVEN_HOME"
 echo "export PATH=$PATH"
 
 cd $WORKSPACE
-WGET_PROPS="--progress=bar:force --no-cache"
-wget $WGET_PROPS $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
-unzip -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
-
-which ant
-ant -version
-
-which mvn
-mvn -version
-
-
-sed -i "s#^porting\.home=.*#porting.home=$WORKSPACE#g" "$WORKSPACE/build.xml"
-sed -i "s#^glassfish\.home=.*#glassfish.home=$WORKSPACE/glassfish5/glassfish#g" "$WORKSPACE/build.xml"
-
-ant -version
-ant dist.sani
 
 mkdir -p ${WORKSPACE}/bundles
 if [ ! -z "$TCK_BUNDLE_BASE_URL" ]; then
@@ -44,6 +28,26 @@ if [ ! -z "$TCK_BUNDLE_BASE_URL" ]; then
   wget  --progress=bar:force --no-cache ${TCK_BUNDLE_BASE_URL}/${TCK_BUNDLE_FILE_NAME} -O ${WORKSPACE}/bundles/${TCK_BUNDLE_FILE_NAME}
   exit 0
 fi
+
+WGET_PROPS="--progress=bar:force --no-cache"
+wget $WGET_PROPS $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
+unzip -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
+
+
+
+
+which ant
+ant -version
+
+which mvn
+mvn -version
+
+sed -i "s#^porting\.home=.*#porting.home=$WORKSPACE#g" "$WORKSPACE/build.xml"
+sed -i "s#^glassfish\.home=.*#glassfish.home=$WORKSPACE/glassfish5/glassfish#g" "$WORKSPACE/build.xml"
+
+ant -version
+ant dist.sani
+
 chmod 777 ${WORKSPACE}/dist/*.zip
 cd ${WORKSPACE}/dist/
 for entry in `ls cdi-tck-*.zip`; do
