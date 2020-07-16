@@ -24,7 +24,7 @@
 
 	<property name="maven.executable" value="${env.MAVEN_HOME}/bin/mvn" />
         <property name="pathsep" value="${path.separator}"/>
-        <property name="tck.version" value="2.0.0"/>
+        <property name="tck.version" value="3.0.0"/>
 	<property name="src" value="${basedir}/src" />
 	<property name="classes" value="${basedir}/classes" />
 	<property name="dist" value="${basedir}/dist" />
@@ -95,7 +95,7 @@
         
         <target name="run.all.tests" depends="sigtest, test"/>
 
-        <target name="test" depends="config.v4, copy.settingsxml, filter.arquillian.xml">
+        <target name="test" depends="config.v4, filter.arquillian.xml">
             
             <antcall target="start.javadb" />
             <delete file="${porting.home}/glassfish-tck-runner/pom.xml"/>
@@ -129,7 +129,7 @@
                 <java outputproperty="sigoutput" fork="true" jar="${lib}/sigtest.jar">
 			<arg value="Signaturetest"/>
                         <arg value="-Classpath"/>
-                        <arg value="${java.home}/${java.classes.for.sig.ext}${pathsep}${glassfish.home}/modules/weld-osgi-bundle.jar${pathsep}${glassfish.home}/modules/cdi-api.jar${pathsep}${glassfish.home}/modules/jakarta.inject.jar${pathsep}${glassfish.home}/modules/jakarta.el.jar/${pathsep}${glassfish.home}/modules/jakarta.interceptor-api.jar${aix.jars}"/>
+                        <arg value="${java.home}/${java.classes.for.sig.ext}${pathsep}${glassfish.home}/modules/weld-osgi-bundle.jar${pathsep}${glassfish.home}/modules/cdi-api-fragment.jar${pathsep}${glassfish.home}/modules/jakarta.inject-api.jar${pathsep}${glassfish.home}/modules/jakarta.el.jar/${pathsep}${glassfish.home}/modules/jakarta.interceptor-api.jar${aix.jars}"/>
                         <arg value="-Package"/>
                         <arg value="javax.enterprise"/>
                         <arg value="-Package"/>
@@ -151,8 +151,8 @@
 	</target>
         <target name="copy.tck.ext.lib.jar">
 		    <echo message="Copying cdi-ext-lib jar"/>
-		    <copy file="${user.home}/.m2/repository/org/jboss/cdi/tck/cdi-tck-ext-lib/${cdiext.version}/${cdiextjar}" todir="${porting.home}/lib">
-			<!--globmapper from="cdi-tck-ext-lib-2.0.0.Alpha7.jar" to="cdi-tck-ext-lib.jar"/-->
+		    <copy file="${porting.home}/.m2/repository/org/jboss/cdi/tck/cdi-tck-ext-lib/${cdiext.version}/${cdiextjar}" 
+		    	todir="${porting.home}/lib">
 			</copy>
             <copy file="${porting.home}/lib/${cdiextjar}" todir="${glassfish.home}/domains/domain1/lib/applibs"
                   flatten="true" overwrite="true">
@@ -467,12 +467,14 @@
                
         <presetdef name="mvn.test">
 		<exec executable="${maven.executable}">
-			<arg value="-P" />
-                        <arg value="glassfish-managed" />
-                        <arg value="-U" />
-                        <arg value="clean" />
-                        <arg value="test" />                       
-                        <!--<arg value="-DtckTest=MessageDrivenBeanContextTest" />-->                      
+				<arg value="--global-settings" />
+				<arg value="${porting.home}/settings.xml"/>
+				<arg value="-P" />
+                <arg value="glassfish-managed" />
+                <arg value="-U" />
+                <arg value="clean" />
+                <arg value="test" />                       
+                <!--<arg value="-DtckTest=MessageDrivenBeanContextTest" />-->                      
 		</exec>
 	</presetdef>
         
@@ -480,6 +482,8 @@
 		<exec executable="cmd">
 			<arg value="/c"/>
                         <arg value="${maven.executable}.bat"/>
+                        <arg value="--global-settings" />
+						<arg value="${porting.home}/settings.xml"/>
                         <arg value="-P" />
                         <arg value="glassfish-managed" />
                         <arg value="-U" />

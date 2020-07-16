@@ -1,31 +1,25 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <!--
-
-    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
-
+    Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
     http://www.eclipse.org/legal/epl-2.0.
-
     This Source Code may also be made available under the following Secondary
     Licenses when the conditions for such availability set forth in the
     Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
     version 2 with the GNU Classpath Exception, which is available at
     https://www.gnu.org/software/classpath/license.html.
-
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
-
 -->
-
-<suite name="CDI TCK" verbose="0" configfailurepolicy="continue" useDefaultListeners="false">
+<suite name="CDI TCK" verbose="0" configfailurepolicy="continue">
 
     <listeners>
         <!-- Required - avoid randomly mixed test method execution -->
         <listener class-name="org.jboss.cdi.tck.impl.testng.SingleTestClassMethodInterceptor" />
-        <!-- Optional - intended for debug purpose only -->
+
         <listener class-name="org.jboss.cdi.tck.impl.testng.ConfigurationLoggingListener"/>
         <listener class-name="org.jboss.cdi.tck.impl.testng.ProgressLoggingTestListener"/>
-        <!-- Optional - it's recommended to disable the default JUnit XML reporter -->
+        <!-- The default JUnit XML reporter is disabled -->
         <listener class-name="org.testng.reporters.SuiteHTMLReporter"/>
         <listener class-name="org.testng.reporters.FailedReporter"/>
         <listener class-name="org.testng.reporters.XMLReporter"/>
@@ -42,28 +36,20 @@
 
         <classes>
 
-            <!-- CDITCK-587 -->
+            
             <class name="org.jboss.cdi.tck.tests.event.observer.transactional.roolback.TransactionalObserverRollbackTest">
                 <methods>
                     <exclude name=".*"/>
                 </methods>
             </class>
-            <!-- CDITCK-597 -->
+
             <class name="org.jboss.cdi.tck.tests.deployment.packaging.ejb.EJBJarDeploymentTest">
-                <methods>
-                    <exclude name=".*"/>
-                </methods>
-            </class>
- 
-            <!-- CDITCK-598 -->
-            <class name="org.jboss.cdi.tck.tests.event.observer.context.enterprise.staticMethod.SessionBeanStaticObserverMethodInvocationContextTest">
                 <methods>
                     <exclude name=".*"/>
                 </methods>
             </class>
 
         </classes>
-
     </test>
 
 </suite>

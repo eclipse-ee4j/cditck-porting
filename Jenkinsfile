@@ -34,7 +34,7 @@ spec:
     - "localhost.localdomain"
   containers:
   - name: cdi-tck-ci
-    image: anajosep/cts-base:0.1
+    image: jakartaee/cts-base:0.2
     command:
     - cat
     tty: true
@@ -51,20 +51,20 @@ spec:
   }
   parameters {
     string(name: 'GF_BUNDLE_URL', 
-           defaultValue: 'https://download.eclipse.org/ee4j/jakartaee-tck/8.0.1/nightly/glassfish.zip',
+           defaultValue: 'https://download.eclipse.org/ee4j/glassfish/glassfish-6.0.0-SNAPSHOT-nightly.zip',
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
     choice(name: 'JDK', choices: 'JDK8\nJDK11',
            description: 'Java SE Version to be used for running TCK either JDK8/JDK11' )
 	string(name: 'TCK_BUNDLE_FILE_NAME', 
-           defaultValue: 'cdi-tck-glassfish-porting-2.0.0.zip', 
+           defaultValue: 'cdi-tck-3.0.0-M3-dist.zip', 
 	   description: 'Name of bundle file to be appended to the base url' )
 	string(name: 'CDI_TCK_BUNDLE_URL', 
-             defaultValue: 'http://download.eclipse.org/ee4j/cdi/cdi-tck-2.0.6-dist.zip', 
+             defaultValue: 'https://download.eclipse.org/ee4j/cdi/cdi-tck-3.0.0-M3-dist.zip', 
   	         description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-             defaultValue: '2.0.6', 
+             defaultValue: '3.0.0-M3', 
              description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
              defaultValue: '', 

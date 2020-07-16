@@ -14,9 +14,8 @@
 #
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
+VER=3.0
 
-
-VER="2.0.0"
 if ls ${WORKSPACE}/bundles/*cdi-tck*.zip 1> /dev/null 2>&1; then
   unzip -o ${WORKSPACE}/bundles/*cdi-tck*.zip -d ${WORKSPACE}
 else
@@ -27,17 +26,40 @@ fi
 export TS_HOME=${WORKSPACE}/cdi-tck-glassfish-porting
 
 #Install Glassfish
-echo "Download and install GlassFish 5.0.1 ..."
-wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O latest-glassfish.zip
+echo "Download and install GlassFish ..."
+wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
 unzip -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
 if [ -z "${CDI_TCK_VERSION}" ]; then
-  CDI_TCK_VERSION=2.0.6	
+  CDI_TCK_VERSION=3.0.0	
 fi
 
 if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
   CDI_TCK_BUNDLE_URL=http://download.eclipse.org/ee4j/cdi/cdi-tck-${CDI_TCK_VERSION}-dist.zip	
 fi
+
+rm -fr arquillian-core-jakartaee9 
+wget https://github.com/jakartaredhat/arquillian-core/archive/jakartaee9.zip -O arquillian-core.zip
+unzip -q arquillian-core.zip
+cd arquillian-core-jakartaee9
+mvn --global-settings "${TS_HOME}/settings.xml" install
+cd $WORKSPACE
+
+# Build 1.0.0-SNAPSHOT release of arquillian-container-glassfish6
+rm -fr arquillian-container-glassfish6-master 
+wget https://github.com/arquillian/arquillian-container-glassfish6/archive/master.zip -O arquillian-container-glassfish6.zip
+unzip -q arquillian-container-glassfish6.zip
+cd arquillian-container-glassfish6-master
+mvn --global-settings "${TS_HOME}/settings.xml" install
+cd $WORKSPACE
+
+rm -fr glassfish-cdi-porting-tck-jakartaee9 
+wget https://github.com/eclipse-ee4j/glassfish-cdi-porting-tck/archive/master.zip -O glassfish-cdi-porting-tck.zip
+unzip -q glassfish-cdi-porting-tck.zip
+cd glassfish-cdi-porting-tck-master
+mvn --global-settings "${TS_HOME}/settings.xml" install
+cd $WORKSPACE
+
 
 #Install CDI TCK dist
 echo "Download and unzip CDI TCK dist ..."
@@ -45,43 +67,42 @@ wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.
 unzip -o ${WORKSPACE}/latest-cdi-tck-dist.zip -d ${WORKSPACE}/
 
 GROUP_ID=org.jboss.cdi.tck 
-CDI_TCK_DIST=cdi-tck-2.0.6
+CDI_TCK_DIST=cdi-tck-${CDI_TCK_VERSION}
 
-#cp ${WORKSPACE}/${CDI_TCK_DIST}/cdi-tck-2.0.6/artifacts/cdi-tck-impl-2.0.6-suite.xml \
-	#${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-2.0.6-suite.xml
-
-
-mvn install:install-file \
+mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
 -Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-api-${CDI_TCK_VERSION}.jar \
 -DgroupId=${GROUP_ID} \
 -DartifactId=cdi-tck-api \
 -Dversion=${CDI_TCK_VERSION} \
 -Dpackaging=jar
 
-mvn install:install-file \
+mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
 -Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-${CDI_TCK_VERSION}.jar \
 -DgroupId=${GROUP_ID} \
 -DartifactId=cdi-tck-impl \
 -Dversion=${CDI_TCK_VERSION} \
 -Dpackaging=jar
 
-mvn install:install-file \
+mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
 -Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar \
 -DgroupId=${GROUP_ID} \
 -DartifactId=cdi-tck-ext-lib \
 -Dversion=${CDI_TCK_VERSION} \
 -Dpackaging=jar
 
-mvn install:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-${CDI_TCK_VERSION}-suite.xml \
+mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/weld/jboss-tck-runner/src/test/tck20/tck-tests.xml \
 -DgroupId=${GROUP_ID} \
 -DartifactId=cdi-tck-impl \
 -Dversion=${CDI_TCK_VERSION} \
 -Dpackaging=xml
 
-mvn install:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-parent-${CDI_TCK_VERSION}.pom -DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-parent -Dversion=${CDI_TCK_VERSION} -Dpackaging=pom
+mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+-Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-parent-${CDI_TCK_VERSION}.pom \
+-DgroupId=${GROUP_ID} \
+-DartifactId=cdi-tck-parent \
+-Dversion=${CDI_TCK_VERSION} \
+-Dpackaging=pom
 
 which ant
 ant -version
@@ -100,11 +121,11 @@ mkdir -p ${REPORT}/cdi-$VER-sig
 mkdir -p ${REPORT}/cdi-$VER
 
 #Edit Glassfish Security policy
-cat ${WORKSPACE}/docker/CDI.policy >> ${WORKSPACE}/glassfish5/glassfish/domains/domain1/config/server.policy
+cat ${WORKSPACE}/docker/CDI.policy >> ${WORKSPACE}/glassfish6/glassfish/domains/domain1/config/server.policy
 
 #Edit test properties
 sed -i "s#porting.home=.*#porting.home=${TS_HOME}#g" ${TS_HOME}/build.properties
-sed -i "s#glassfish.home=.*#glassfish.home=${WORKSPACE}/glassfish5/glassfish#g" ${TS_HOME}/build.properties
+sed -i "s#glassfish.home=.*#glassfish.home=${WORKSPACE}/glassfish6/glassfish#g" ${TS_HOME}/build.properties
 if [[ "${PROFILE}" == "web" || "${PROFILE}" == "WEB" ]]; then
   sed -i "s#javaee.level=.*#javaee.level=web#g" ${TS_HOME}/build.properties
 else
@@ -115,15 +136,17 @@ sed -i "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
 sed -i "s#cdiextjar=.*#cdiextjar=cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar#g" ${TS_HOME}/build.properties
 sed -i "s#cdiext.version=.*#cdiext.version=${CDI_TCK_VERSION}#g" ${TS_HOME}/build.properties
 
-#CDI_TCK_DIST=cdi-tck-2.0.6
 cp ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests_bkup.xml 
 cp ${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-impl-${CDI_TCK_VERSION}-suite.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml
+
+sed -i "s#<suite name=.*#<suite name=\"CDI TCK\" verbose=\"0\" configfailurepolicy=\"continue\">#g" ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml
 
 #Run Tests
 cd ${TS_HOME}
 export MAVEN_OPTS="-Duser.home=$HOME $MAVEN_OPTS"
 ant $ANT_OPTS sigtest
 ant $ANT_OPTS test
+
 
 #Generate Reports
 echo "<pre>" > ${REPORT}/cdi-$VER-sig/report.html
@@ -138,10 +161,10 @@ if [[ -f ${REPORT}/cdi-$VER/test-report.html ]];then
 fi
 
 mv ${REPORT}/cdi-$VER/TEST-TestSuite.xml  ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
-sed -i 's/name=\"TestSuite\"/name="cditck-2.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
+sed -i 's/name=\"TestSuite\"/name="cditck-3.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
 # Create Junit formated file for sigtests
 echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-2.0.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-3.0.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '<testcase classname="CDISigTest" name="cdiSigTest" time="0.2">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '  <system-out>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 cat $REPORT/cdi_sig_test_results.txt >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
@@ -161,3 +184,4 @@ if [ -f "$REPORT/cdi-$VER-sig/report.html" ]; then
 fi
 
 tar zcvf ${WORKSPACE}/cdi-tck-results.tar.gz ${REPORT} ${WORK}
+

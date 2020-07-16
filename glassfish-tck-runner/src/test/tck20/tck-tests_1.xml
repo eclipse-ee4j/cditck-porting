@@ -16,7 +16,7 @@
 
 -->
 
-<suite name="CDI TCK" verbose="0" configfailurepolicy="continue" useDefaultListeners="false">
+<suite name="CDI TCK" verbose="0" configfailurepolicy="continue">
 <listeners>
 <!--
 Required - avoid randomly mixed test method execution
