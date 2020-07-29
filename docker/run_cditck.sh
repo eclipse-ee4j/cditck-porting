@@ -14,7 +14,7 @@
 #
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
-VER=3.0
+VER=3.0.0
 
 if ls ${WORKSPACE}/bundles/*cdi-tck*.zip 1> /dev/null 2>&1; then
   unzip -o ${WORKSPACE}/bundles/*cdi-tck*.zip -d ${WORKSPACE}
@@ -31,18 +31,18 @@ wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glass
 unzip -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
 if [ -z "${CDI_TCK_VERSION}" ]; then
-  CDI_TCK_VERSION=3.0.0	
+  CDI_TCK_VERSION=3.0.0-RC1
 fi
 
 if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
   CDI_TCK_BUNDLE_URL=http://download.eclipse.org/ee4j/cdi/cdi-tck-${CDI_TCK_VERSION}-dist.zip	
 fi
 
-rm -fr arquillian-core-jakartaee9 
-wget https://github.com/jakartaredhat/arquillian-core/archive/jakartaee9.zip -O arquillian-core.zip
+rm -fr arquillian-core-master 
+wget https://github.com/jakartaredhat/arquillian-core/archive/master.zip -O arquillian-core.zip
 unzip -q arquillian-core.zip
-cd arquillian-core-jakartaee9
-mvn --global-settings "${TS_HOME}/settings.xml" install
+cd arquillian-core-master
+mvn --global-settings "${TS_HOME}/settings.xml" clean install
 cd $WORKSPACE
 
 # Build 1.0.0-SNAPSHOT release of arquillian-container-glassfish6
@@ -50,14 +50,14 @@ rm -fr arquillian-container-glassfish6-master
 wget https://github.com/arquillian/arquillian-container-glassfish6/archive/master.zip -O arquillian-container-glassfish6.zip
 unzip -q arquillian-container-glassfish6.zip
 cd arquillian-container-glassfish6-master
-mvn --global-settings "${TS_HOME}/settings.xml" install
+mvn --global-settings "${TS_HOME}/settings.xml" clean install
 cd $WORKSPACE
 
-rm -fr glassfish-cdi-porting-tck-jakartaee9 
+rm -fr glassfish-cdi-porting-tck-master 
 wget https://github.com/eclipse-ee4j/glassfish-cdi-porting-tck/archive/master.zip -O glassfish-cdi-porting-tck.zip
 unzip -q glassfish-cdi-porting-tck.zip
 cd glassfish-cdi-porting-tck-master
-mvn --global-settings "${TS_HOME}/settings.xml" install
+mvn --global-settings "${TS_HOME}/settings.xml" clean install
 cd $WORKSPACE
 
 
@@ -66,7 +66,7 @@ echo "Download and unzip CDI TCK dist ..."
 wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
 unzip -o ${WORKSPACE}/latest-cdi-tck-dist.zip -d ${WORKSPACE}/
 
-GROUP_ID=org.jboss.cdi.tck 
+GROUP_ID=jakarta.enterprise
 CDI_TCK_DIST=cdi-tck-${CDI_TCK_VERSION}
 
 mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \

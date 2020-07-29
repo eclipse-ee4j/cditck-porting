@@ -58,13 +58,13 @@ spec:
     choice(name: 'JDK', choices: 'JDK8\nJDK11',
            description: 'Java SE Version to be used for running TCK either JDK8/JDK11' )
 	string(name: 'TCK_BUNDLE_FILE_NAME', 
-           defaultValue: 'cdi-tck-3.0.0-M3-dist.zip', 
+           defaultValue: 'cdi-tck-3.0.0-RC1-dist.zip', 
 	   description: 'Name of bundle file to be appended to the base url' )
 	string(name: 'CDI_TCK_BUNDLE_URL', 
-             defaultValue: 'https://download.eclipse.org/ee4j/cdi/cdi-tck-3.0.0-M3-dist.zip', 
+             defaultValue: 'https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/enterprise/cdi-tck-dist/3.0.0-RC1/cdi-tck-dist-3.0.0-RC1-dist.zip', 
   	         description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-             defaultValue: '3.0.0-M3', 
+             defaultValue: '3.0.0-RC1', 
              description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
              defaultValue: '', 

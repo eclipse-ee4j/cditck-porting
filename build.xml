@@ -151,7 +151,7 @@
 	</target>
         <target name="copy.tck.ext.lib.jar">
 		    <echo message="Copying cdi-ext-lib jar"/>
-		    <copy file="${porting.home}/.m2/repository/org/jboss/cdi/tck/cdi-tck-ext-lib/${cdiext.version}/${cdiextjar}" 
+		    <copy file="${porting.home}/.m2/repository/jakarta/enterprise/cdi-tck-ext-lib/${cdiext.version}/${cdiextjar}" 
 		    	todir="${porting.home}/lib">
 			</copy>
             <copy file="${porting.home}/lib/${cdiextjar}" todir="${glassfish.home}/domains/domain1/lib/applibs"
@@ -433,7 +433,7 @@
         
         <target name="config.v4">		                
                 <stop.domain />
-				<if>
+				<!--<if>
                 <or>
                  <os family="windows"/>
                  <os family="dos"/>
@@ -444,7 +444,7 @@
                 <else>
                     <mvn.dependency dir="glassfish-tck-runner"/>
                 </else>
-				</if>
+				</if> -->
                 <antcall target="copy.tck.ext.lib.jar"/>                
 		<antcall target="clean" />
                 <edit.domain.xml />
@@ -473,7 +473,8 @@
                 <arg value="glassfish-managed" />
                 <arg value="-U" />
                 <arg value="clean" />
-                <arg value="test" />                       
+                <arg value="test" />  
+                <arg value="dependency:tree"/>                     
                 <!--<arg value="-DtckTest=MessageDrivenBeanContextTest" />-->                      
 		</exec>
 	</presetdef>
@@ -488,7 +489,9 @@
                         <arg value="glassfish-managed" />
                         <arg value="-U" />
                         <arg value="test" />
+                        <arg value="dependency:tree"/>                     
                         <arg value="-Darquillian.version=1.1.11.Final" />
+
 		</exec>
 	</presetdef>
 	
@@ -512,7 +515,7 @@
 			
                         <arg value="dependency:get" />
 						<arg value="-DrepositoryUrl=http://central.maven.org/maven2/"/>
-						<arg value="-DgroupId=org.jboss.cdi.tck"/>
+						<arg value="-DgroupId=jakarta.enterprise"/>
 						<arg value="-DartifactId=cdi-tck-ext-lib"/>
 						<arg value="-Dversion=${cdiext.version}"/>						
                         <!--<arg value="-DtckTest=MessageDrivenBeanContextTest" />-->                      
@@ -525,7 +528,7 @@
                         <arg value="${maven.executable}.bat"/>
                         <arg value="dependency:get"/>
 						<arg value="-DrepositoryUrl=http://central.maven.org/maven2/"/>
-						<arg value="-DgroupId=org.jboss.cdi.tck"/>
+						<arg value="-DgroupId=jakarta.enterprise"/>
 						<arg value="-DartifactId=cdi-tck-ext-lib"/>
 						<arg value="-Dversion=${cdiext.version}"/>
 		</exec>

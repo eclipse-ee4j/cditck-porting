@@ -25,7 +25,7 @@
     
     <modelVersion>4.0.0</modelVersion>
     <artifactId>weld-glassfish-runner-tck11</artifactId>
-    <name>CDI TCK runner 2.0 for Weld (GlassFish)</name>
+    <name>CDI TCK runner 3.0 for Weld (GlassFish)</name>
     <description>Aggregates dependencies and runs the CDI TCK (both standalone and on GlassFish AS)</description>
 
     <licenses>
@@ -41,7 +41,7 @@
         <htmlunit.version>2.9</htmlunit.version>
         <shrinkwrap.version>1.0.1</shrinkwrap.version>
         <minimum.maven.version>3.0.5</minimum.maven.version>
-        <cdi.tck.version>3.0.0-M3</cdi.tck.version>
+        <cdi.tck.version>3.0.0-RC1</cdi.tck.version>
         <httpcomponents.version>4.5.5</httpcomponents.version>
     </properties>
 
@@ -571,12 +571,12 @@
                     <dependency>
                         <groupId>org.jboss.arquillian.container</groupId>
                         <artifactId>arquillian-glassfish-managed-6</artifactId>
-                        <version>1.0.0-SNAPSHOT</version>
+                        <version>1.0.0.Final-SNAPSHOT</version>
                     </dependency> 
                     <dependency>
                         <groupId>org.jboss.arquillian.protocol</groupId>
                         <artifactId>arquillian-protocol-servlet</artifactId>
-                        <version>${arquillian.version}</version>
+                        <version>1.7.0.Alpha2</version>
                         <scope>test</scope>
                     </dependency>
                     <dependency>
