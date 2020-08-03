@@ -118,7 +118,7 @@
           <arg line="${asadmin.password.line}"/>
           <arg line=" create-jms-resource "/>
           <arg line="--restype " />
-          <arg line="javax.jms.Queue " />
+          <arg line="jakarta.jms.Queue " />
           <arg line="--property " />
           <arg line="Name=queue_test " />
           <arg line="queue_test " />            
@@ -130,7 +130,7 @@
           <arg line="${asadmin.password.line}"/>
           <arg line=" create-jms-resource "/>
           <arg line="--restype " />
-          <arg line="javax.jms.Topic " />
+          <arg line="jakarta.jms.Topic " />
           <arg line="--property " />
           <arg line="Name=topic_test " />
           <arg line="topic_test " />            
