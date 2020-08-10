@@ -31,7 +31,7 @@ wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glass
 unzip -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
 if [ -z "${CDI_TCK_VERSION}" ]; then
-  CDI_TCK_VERSION=3.0.0-RC1
+  CDI_TCK_VERSION=3.0.0
 fi
 
 if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
