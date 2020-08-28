@@ -39,7 +39,7 @@ if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
 fi
 
 rm -fr arquillian-core-master 
-wget https://github.com/jakartaredhat/arquillian-core/archive/master.zip -O arquillian-core.zip
+wget https://github.com/arquillian/arquillian-core/archive/master.zip -O arquillian-core.zip
 unzip -q arquillian-core.zip
 cd arquillian-core-master
 mvn --global-settings "${TS_HOME}/settings.xml" clean install
