@@ -183,5 +183,4 @@ if [ -f "$REPORT/cdi-$VER-sig/report.html" ]; then
   fi
 fi
 
-tar zcvf ${WORKSPACE}/cdi-tck-results.tar.gz ${REPORT} ${WORK}
-
+tar zcvf ${WORKSPACE}/cdi-tck-results.tar.gz ${REPORT} ${WORK} ${WORKSPACE}/glassfish6/glassfish/domains/domain1/logs/
