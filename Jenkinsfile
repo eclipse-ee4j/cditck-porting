@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -51,24 +51,24 @@ spec:
   }
   parameters {
     string(name: 'GF_BUNDLE_URL', 
-           defaultValue: 'https://download.eclipse.org/ee4j/glassfish/glassfish-6.0.0-SNAPSHOT-nightly.zip',
+           defaultValue: 'https://download.eclipse.org/ee4j/glassfish/glassfish-6.0.1-SNAPSHOT-nightly.zip',
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
     choice(name: 'JDK', choices: 'JDK8\nJDK11',
            description: 'Java SE Version to be used for running TCK either JDK8/JDK11' )
-	string(name: 'TCK_BUNDLE_FILE_NAME', 
+	  string(name: 'TCK_BUNDLE_FILE_NAME', 
            defaultValue: '', 
-	   description: 'Name of bundle file to be appended to the base url' )
-	string(name: 'CDI_TCK_BUNDLE_URL', 
-             defaultValue: 'https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/enterprise/cdi-tck-dist/3.0.0/cdi-tck-dist-3.0.0-dist.zip', 
-  	         description: 'CDI TCK bundle url' )
+	         description: 'Name of bundle file to be appended to the base url' )
+	  string(name: 'CDI_TCK_BUNDLE_URL', 
+          defaultValue: 'https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/enterprise/cdi-tck-dist/3.0.0/cdi-tck-dist-3.0.0-dist.zip', 
+  	      description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-             defaultValue: '3.0.0', 
-             description: 'version of bundle file' )
+          defaultValue: '3.0.0', 
+          description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
-             defaultValue: '', 
-             description: 'url of porting kit bundle file' )
+          defaultValue: '', 
+          description: 'url of porting kit bundle file' )
   }
   environment {
     ANT_HOME = "/usr/share/ant"
