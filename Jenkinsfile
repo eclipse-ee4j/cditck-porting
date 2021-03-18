@@ -51,7 +51,7 @@ spec:
   }
   parameters {
     string(name: 'GF_BUNDLE_URL', 
-           defaultValue: 'https://download.eclipse.org/ee4j/glassfish/glassfish-6.0.1-SNAPSHOT-nightly.zip',
+           defaultValue: 'https://ci.eclipse.org/jakartaee-tck/job/build-glassfish/lastSuccessfulBuild/artifact/appserver/distributions/glassfish/target/glassfish.zip',
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
@@ -61,10 +61,10 @@ spec:
            defaultValue: '', 
 	         description: 'Name of bundle file to be appended to the base url' )
 	  string(name: 'CDI_TCK_BUNDLE_URL', 
-          defaultValue: 'https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/enterprise/cdi-tck-dist/3.0.0/cdi-tck-dist-3.0.0-dist.zip', 
+          defaultValue: 'https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/enterprise/cdi-tck-dist/3.0.2/cdi-tck-dist-3.0.2-dist.zip', 
   	      description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-          defaultValue: '3.0.0', 
+          defaultValue: '3.0.2', 
           description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
           defaultValue: '', 
