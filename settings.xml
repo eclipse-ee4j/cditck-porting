@@ -30,15 +30,6 @@
       </snapshots>
     </repository>
     <repository>
-      <id>central2</id>
-      <name>Central Repository</name>
-      <url>https://repo1.maven.apache.org/maven2</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
       <id>jboss</id>
       <name>Jboss Central Repository</name>
       <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
