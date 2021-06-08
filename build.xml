@@ -24,7 +24,7 @@
 
 	<property name="maven.executable" value="${env.MAVEN_HOME}/bin/mvn" />
         <property name="pathsep" value="${path.separator}"/>
-        <property name="tck.version" value="3.0.1"/>
+        <property name="portingkit.version" value="3.0.1"/>
 	<property name="src" value="${basedir}/src" />
 	<property name="classes" value="${basedir}/classes" />
 	<property name="dist" value="${basedir}/dist" />
@@ -177,7 +177,7 @@
         
 	<target name="dist">
 	
-            <delete file="${dist}/${dist.file}-${tck.version}_${time.stamp.bundle.string}.zip"/>
+            <delete file="${dist}/${dist.file}-${portingkit.version}_${time.stamp.bundle.string}.zip"/>
             <delete file="${porting.home}/glassfish-tck-runner/pom.xml"/>
             <delete file="${porting.home}/glassfish-tck-runner/src/test/glassfish-managed/arquillian.xml"/>
                 	
@@ -195,7 +195,7 @@
             <format property="time.stamp.bundle.string" pattern="dd-MMM-yyyy" locale="en" />
         </tstamp>
 
-		<zip destfile="${dist}/${dist.file}-${tck.version}_${time.stamp.bundle.string}.zip">
+		<zip destfile="${dist}/${dist.file}-${portingkit.version}_${time.stamp.bundle.string}.zip">
 			<zipfileset dir="${basedir}" includes="*.xml, build.properties, classes/**,
                             lib/*.jar, glassfish-tck-runner/**, readme.txt, *.sig, password.template"
                             excludes="domain*.xml, lib/sigtestdev.jar, glassfish-tck-runner/target/**, glassfish-tck-runner/target*/**, glassfish-tck-runner/src/test/tck20/tck-tests_*" prefix="cdi-tck-glassfish-porting" />
