@@ -55,8 +55,8 @@ spec:
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
-    choice(name: 'JDK', choices: 'JDK8\nJDK11',
-           description: 'Java SE Version to be used for running TCK either JDK8/JDK11' )
+    choice(name: 'JDK', choices: 'JDK11',
+           description: 'Java SE Version to be used for running TCK either JDK11' )
 	  string(name: 'TCK_BUNDLE_FILE_NAME', 
            defaultValue: '', 
 	         description: 'Name of bundle file to be appended to the base url' )
