@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 #
-# Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v. 2.0, which is available at
@@ -15,18 +15,15 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 echo "ANT_HOME=$ANT_HOME"
-echo "export JAVA_HOME=$JDK11_HOME"
 echo "export MAVEN_HOME=$MAVEN_HOME"
 echo "export PATH=$PATH"
 
-export JAVA_HOME=$JDK11_HOME
 
 cd $WORKSPACE
 
 mkdir -p ${WORKSPACE}/bundles
 if [ ! -z "$TCK_BUNDLE_BASE_URL" ]; then
   #use pre-built tck bundle from this location to run test
-  #mkdir -p ${WORKSPACE}/bundles
   wget  --progress=bar:force --no-cache ${TCK_BUNDLE_BASE_URL}/${TCK_BUNDLE_FILE_NAME} -O ${WORKSPACE}/bundles/${TCK_BUNDLE_FILE_NAME}
   exit 0
 fi
@@ -45,7 +42,7 @@ which mvn
 mvn -version
 
 sed -i "s#^porting\.home=.*#porting.home=$WORKSPACE#g" "$WORKSPACE/build.xml"
-sed -i "s#^glassfish\.home=.*#glassfish.home=$WORKSPACE/glassfish6/glassfish#g" "$WORKSPACE/build.xml"
+sed -i "s#^glassfish\.home=.*#glassfish.home=$WORKSPACE/glassfish7/glassfish#g" "$WORKSPACE/build.xml"
 
 ant -version
 ant dist.sani

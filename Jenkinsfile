@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -34,7 +34,7 @@ spec:
     - "localhost.localdomain"
   containers:
   - name: cdi-tck-ci
-    image: jakartaee/cts-base:0.2
+    image: jakartaee/cts-base:0.3
     command:
     - cat
     tty: true
@@ -51,7 +51,7 @@ spec:
   }
   parameters {
     string(name: 'GF_BUNDLE_URL', 
-           defaultValue: 'https://ci.eclipse.org/jakartaee-tck/job/build-glassfish/lastSuccessfulBuild/artifact/appserver/distributions/glassfish/target/glassfish.zip',
+           defaultValue: 'https://download.eclipse.org/ee4j/glassfish/glassfish-7.0.0-SNAPSHOT-nightly.zip',
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
@@ -61,10 +61,10 @@ spec:
            defaultValue: '', 
 	         description: 'Name of bundle file to be appended to the base url' )
 	  string(name: 'CDI_TCK_BUNDLE_URL', 
-          defaultValue: 'https://jakarta.oss.sonatype.org/content/repositories/staging/jakarta/enterprise/cdi-tck-dist/3.0.2/cdi-tck-dist-3.0.2-dist.zip', 
+          defaultValue: 'https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.0-dist.zip', 
   	      description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-          defaultValue: '3.0.1', 
+          defaultValue: '4.0.0', 
           description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
           defaultValue: '', 
