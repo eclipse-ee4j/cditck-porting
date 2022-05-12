@@ -138,17 +138,17 @@ mkdir -p ${REPORT}/cdi-$VER
 cat ${WORKSPACE}/docker/CDI.policy >> ${WORKSPACE}/${GF_TOPLEVEL_DIR}/glassfish/domains/domain1/config/server.policy
 
 #Edit test properties
-sed -i "s#porting.home=.*#porting.home=${TS_HOME}#g" ${TS_HOME}/build.properties
-sed -i "s#glassfish.home=.*#glassfish.home=${WORKSPACE}/${GF_TOPLEVEL_DIR}/glassfish#g" ${TS_HOME}/build.properties
+sed -i'' -e "s#porting.home=.*#porting.home=${TS_HOME}#g" ${TS_HOME}/build.properties
+sed -i'' -e "s#glassfish.home=.*#glassfish.home=${WORKSPACE}/${GF_TOPLEVEL_DIR}/glassfish#g" ${TS_HOME}/build.properties
 if [[ "${PROFILE}" == "web" || "${PROFILE}" == "WEB" ]]; then
-  sed -i "s#javaee.level=.*#javaee.level=web#g" ${TS_HOME}/build.properties
+  sed -i'' -e "s#javaee.level=.*#javaee.level=web#g" ${TS_HOME}/build.properties
 else
-  sed -i "s#javaee.level=.*#javaee.level=full#g" ${TS_HOME}/build.properties
+  sed -i'' -e "s#javaee.level=.*#javaee.level=full#g" ${TS_HOME}/build.properties
 fi
-sed -i "s#report.dir=.*#report.dir=${REPORT}#g" ${TS_HOME}/build.properties
-sed -i "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
-sed -i "s#cdiextjar=.*#cdiextjar=cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar#g" ${TS_HOME}/build.properties
-sed -i "s#cdiext.version=.*#cdiext.version=${CDI_TCK_VERSION}#g" ${TS_HOME}/build.properties
+sed -i'' -e "s#report.dir=.*#report.dir=${REPORT}#g" ${TS_HOME}/build.properties
+sed -i'' -e "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
+sed -i'' -e "s#cdiextjar=.*#cdiextjar=cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar#g" ${TS_HOME}/build.properties
+sed -i'' -e "s#cdiext.version=.*#cdiext.version=${CDI_TCK_VERSION}#g" ${TS_HOME}/build.properties
 
 cp ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests_bkup.xml 
 cp ${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-core-impl-${CDI_TCK_VERSION}-suite.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml
@@ -174,7 +174,7 @@ if [[ -f ${REPORT}/cdi-$VER/test-report.html ]];then
 fi
 
 mv ${REPORT}/cdi-$VER/TEST-TestSuite.xml  ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
-sed -i 's/name=\"TestSuite\"/name="cditck-4.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
+sed -i'' -e 's/name=\"TestSuite\"/name="cditck-4.0"/g' ${REPORT}/cdi-$VER/cditck-$VER-junit-report.xml
 # Create Junit formated file for sigtests
 echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-$VER-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
@@ -188,11 +188,11 @@ echo '</testsuite>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 # Fill appropriate test counts
 if [ -f "$REPORT/cdi-$VER-sig/report.html" ]; then
   if grep -q STATUS:Passed "$REPORT/cdi-$VER-sig/report.html"; then
-    sed -i 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-    sed -i 's/failures=\"FAILED\"/failures="0"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i'' -e 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i'' -e 's/failures=\"FAILED\"/failures="0"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
   else 
-    sed -i 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-    sed -i 's/failures=\"FAILED\"/failures="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i'' -e 's/tests=\"TOTAL\"/tests="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+    sed -i'' -e 's/failures=\"FAILED\"/failures="1"/g' $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
   fi
 fi
 
