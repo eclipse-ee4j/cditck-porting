@@ -47,8 +47,6 @@
         <jakarta.platform.version>10.0.0-RC1</jakarta.platform.version>
     </properties>
 
-   <!-- TODO: Temporarily enable snapshot repository -->
-    <!-- This can be removed once an official releases available -->
     <repositories>
         <repository>
             <id>jakarta-snapshots</id>
@@ -545,7 +543,7 @@
 
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-glassfish-managed</artifactId>
+            <artifactId>arquillian-glassfish-managed-jakarta</artifactId>
             <version>1.0.0.Final-SNAPSHOT</version>
         </dependency>
 
