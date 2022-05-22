@@ -1,5 +1,6 @@
 #!/bin/bash -xe
 #
+# Copyright (c) 2022, 2022 Contributors to the Eclipse Foundation
 # Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
@@ -52,14 +53,6 @@ rm -fr arquillian-core-master
 wget https://github.com/arquillian/arquillian-core/archive/master.zip -O arquillian-core.zip
 unzip -q -o arquillian-core.zip
 cd arquillian-core-master
-mvn --global-settings "${TS_HOME}/settings.xml" clean install -DskipTests
-cd $WORKSPACE
-
-# Build 1.0.0-SNAPSHOT release of arquillian-container-glassfish6
-rm -fr arquillian-container-glassfish6-master 
-wget https://github.com/arquillian/arquillian-container-glassfish6/archive/master.zip -O arquillian-container-glassfish.zip
-unzip -q -o arquillian-container-glassfish.zip
-cd arquillian-container-glassfish6-master
 mvn --global-settings "${TS_HOME}/settings.xml" clean install -DskipTests
 cd $WORKSPACE
 
