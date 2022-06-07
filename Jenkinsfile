@@ -64,7 +64,7 @@ spec:
           defaultValue: 'https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.0-dist.zip', 
   	      description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-          defaultValue: '4.0.0', 
+          defaultValue: '4.0.3', 
           description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
           defaultValue: '', 
