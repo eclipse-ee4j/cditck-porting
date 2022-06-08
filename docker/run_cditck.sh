@@ -49,14 +49,7 @@ if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
   CDI_TCK_BUNDLE_URL=https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.0-dist.zip
 fi
 
-rm -fr arquillian-core-master 
-wget https://github.com/arquillian/arquillian-core/archive/master.zip -O arquillian-core.zip
-unzip -q -o arquillian-core.zip
-cd arquillian-core-master
-mvn --global-settings "${TS_HOME}/settings.xml" clean install -DskipTests
-cd $WORKSPACE
-
-rm -fr glassfish-cdi-porting-tck-master 
+rm -fr glassfish-cdi-porting-tck-master
 wget https://github.com/eclipse-ee4j/glassfish-cdi-porting-tck/archive/master.zip -O glassfish-cdi-porting-tck.zip
 unzip -q -o glassfish-cdi-porting-tck.zip
 cd glassfish-cdi-porting-tck-master
