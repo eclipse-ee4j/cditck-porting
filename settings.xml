@@ -30,15 +30,6 @@
       </snapshots>
     </repository>
     <repository>
-      <id>jboss</id>
-      <name>Jboss Central Repository</name>
-      <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
       <id>jakarta</id>
       <name>Jakarta Staging Repository</name>
       <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>

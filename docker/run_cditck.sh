@@ -72,47 +72,8 @@ unzip -q -o ${WORKSPACE}/latest-cdi-tck-dist.zip -d ${WORKSPACE}/
 GROUP_ID=jakarta.enterprise
 CDI_TCK_DIST=cdi-tck-${CDI_TCK_VERSION}
 
-mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-api-${CDI_TCK_VERSION}.jar \
--DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-api \
--Dversion=${CDI_TCK_VERSION} \
--Dpackaging=jar
-
-mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-core-impl-${CDI_TCK_VERSION}.jar \
--DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-core-impl \
--Dversion=${CDI_TCK_VERSION} \
--Dpackaging=jar
-
-mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-web-impl-${CDI_TCK_VERSION}.jar \
--DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-web-impl \
--Dversion=${CDI_TCK_VERSION} \
--Dpackaging=jar
-
-mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar \
--DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-ext-lib \
--Dversion=${CDI_TCK_VERSION} \
--Dpackaging=jar
-
-mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/weld/jboss-tck-runner/src/test/tck20/tck-tests.xml \
--DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-core-impl \
--Dversion=${CDI_TCK_VERSION} \
--Dpackaging=xml
-
-mvn --global-settings "${TS_HOME}/settings.xml" org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
--Dfile=${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-parent-${CDI_TCK_VERSION}.pom \
--DgroupId=${GROUP_ID} \
--DartifactId=cdi-tck-parent \
--Dversion=${CDI_TCK_VERSION} \
--Dpackaging=pom
+cd ${CDI_TCK_DIST}/artifacts
+mvn --global-settings "${TS_HOME}/settings.xml" install
 
 which ant
 ant -version
