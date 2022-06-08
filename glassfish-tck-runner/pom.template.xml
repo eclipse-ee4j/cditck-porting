@@ -410,6 +410,10 @@
                     <groupId>org.testng</groupId>
                     <artifactId>testng</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -479,6 +483,14 @@
                     <artifactId>container-se-api</artifactId>
                     <groupId>org.jboss.arquillian.container</groupId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.test-audit</groupId>
+                    <artifactId>jboss-test-audit-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.test-audit</groupId>
+                    <artifactId>jboss-test-audit-impl</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -491,6 +503,14 @@
                 <exclusion>
                     <artifactId>container-se-api</artifactId>
                     <groupId>org.jboss.arquillian.container</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.test-audit</groupId>
+                    <artifactId>jboss-test-audit-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.test-audit</groupId>
+                    <artifactId>jboss-test-audit-impl</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -541,6 +561,11 @@
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
