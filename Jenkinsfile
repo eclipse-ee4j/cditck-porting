@@ -61,10 +61,10 @@ spec:
            defaultValue: '', 
 	         description: 'Name of bundle file to be appended to the base url' )
 	  string(name: 'CDI_TCK_BUNDLE_URL', 
-          defaultValue: 'https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.3-dist.zip', 
+          defaultValue: 'https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.4-dist.zip', 
   	      description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-          defaultValue: '4.0.3', 
+          defaultValue: '4.0.4', 
           description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
           defaultValue: '', 
