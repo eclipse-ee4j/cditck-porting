@@ -55,16 +55,16 @@ spec:
            description: 'URL required for downloading GlassFish Full/Web profile bundle' )
     choice(name: 'PROFILE', choices: 'FULL\nWEB', 
            description: 'Profile to be used for running CTS either web/full' )
-    choice(name: 'JDK', choices: 'JDK11',
-           description: 'Java SE Version to be used for running TCK either JDK11' )
+    choice(name: 'JDK', choices: 'JDK11\nJDK17',
+           description: 'Java SE Version to be used for running TCK either JDK11/JDK17' )
 	  string(name: 'TCK_BUNDLE_FILE_NAME', 
            defaultValue: '', 
 	         description: 'Name of bundle file to be appended to the base url' )
 	  string(name: 'CDI_TCK_BUNDLE_URL', 
-          defaultValue: 'https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.4-dist.zip', 
+          defaultValue: 'https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.5-dist.zip', 
   	      description: 'CDI TCK bundle url' )
     string(name: 'CDI_TCK_VERSION', 
-          defaultValue: '4.0.4', 
+          defaultValue: '4.0.5', 
           description: 'version of bundle file' )
     string(name: 'TCK_BUNDLE_BASE_URL', 
           defaultValue: '', 

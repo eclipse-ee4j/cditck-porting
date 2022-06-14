@@ -42,11 +42,11 @@ wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glass
 unzip -q -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
 if [ -z "${CDI_TCK_VERSION}" ]; then
-  CDI_TCK_VERSION=4.0.4
+  CDI_TCK_VERSION=4.0.5
 fi
 
 if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
-  CDI_TCK_BUNDLE_URL=https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.4-dist.zip
+  CDI_TCK_BUNDLE_URL=https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.5-dist.zip
 fi
 
 rm -fr glassfish-cdi-porting-tck-master
