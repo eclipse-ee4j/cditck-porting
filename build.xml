@@ -452,6 +452,7 @@
                 <arg value="-U" />
                 <arg value="clean" />
                 <arg value="test" />  
+                <arg value="-Dincontainer"/>                     
                 <arg value="dependency:tree"/>                     
         </exec>
     </presetdef>
@@ -477,6 +478,7 @@
                         <arg value="glassfish-managed" />
                         <arg value="-U" />
                         <arg value="test" />
+                        <arg value="-Dincontainer"/>                     
                         <arg value="dependency:tree"/>                     
                         <arg value="-Darquillian.version=1.1.11.Final" />
 
