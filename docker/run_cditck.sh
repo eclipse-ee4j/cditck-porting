@@ -103,9 +103,9 @@ cp ${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-core-impl-${CDI_TCK_VERSION}-s
 
 #Run Tests
 cd ${TS_HOME}
-export MAVEN_OPTS="-Duser.home=$HOME $MAVEN_OPTS"
+export MAVEN_OPTS="-Duser.home=$HOME $MAVEN_OPTS -Dincontainer"
 ant $ANT_OPTS sigtest
-ant $ANT_OPTS test
+ant $ANT_OPTS test -Dincontainer
 
 
 #Generate Reports
