@@ -521,30 +521,6 @@
             <version>${version.arquillian_core}</version>
         </dependency>
 
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-cdi-jakarta</artifactId>
-          <version>${version.arquillian_core}</version>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-ejb-jakarta</artifactId>
-          <version>${version.arquillian_core}</version>    
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-resource-jakarta</artifactId>
-          <version>${version.arquillian_core}</version>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-initialcontext</artifactId>
-          <version>${version.arquillian_core}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.jboss.weld/weld-lite-extension-translator -->
         <dependency>
             <groupId>org.jboss.weld</groupId>
@@ -677,24 +653,6 @@
                     <artifactId>arquillian-parent-glassfish</artifactId>
                     <version>1.0.2</version>
                     <type>pom</type>
-                    <exclusions>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-cdi-jakarta</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-ejb-jakarta</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-resource-jakarta</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-initialcontext</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>    
-                    </exclusions>
                 </dependency> 
                 <dependency>
                     <groupId>org.jboss.arquillian.protocol</groupId>
