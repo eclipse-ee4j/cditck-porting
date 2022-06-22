@@ -12,7 +12,7 @@
 -->
 
 <settings>
-      <localRepository>${env.TS_HOME}/.m2/repository</localRepository>
+      <localRepository>${WORKSPACE}/.m2/repository</localRepository>
 <activeProfiles>
     <activeProfile>default</activeProfile>
   </activeProfiles>

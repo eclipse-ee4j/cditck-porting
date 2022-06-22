@@ -28,7 +28,8 @@ import org.jboss.arquillian.core.spi.LoadableExtension;
 public class GlassFishExtension implements LoadableExtension {
 
     private static final String GLASSFISH_CLIENTUTILS_CLASS = "org.omnifaces.arquillian.container.glassfish.clientutils.GlassFishClientUtil";
-   
+
+    @Override
     public void register(ExtensionBuilder builder) {
         if (Validate.classExists(GLASSFISH_CLIENTUTILS_CLASS)) {
             builder.service(DeploymentExceptionTransformer.class, GlassFishDeploymentExceptionTransformer.class);

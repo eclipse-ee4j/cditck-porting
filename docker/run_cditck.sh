@@ -27,15 +27,6 @@ if [[ "$JDK" == "JDK17" || "$JDK" == "jdk17" ]];then
 fi
 export PATH=$JAVA_HOME/bin:$PATH
 
-if ls ${WORKSPACE}/bundles/*cdi-tck*.zip 1> /dev/null 2>&1; then
-  unzip -o ${WORKSPACE}/bundles/*cdi-tck*.zip -d ${WORKSPACE}
-else
-  echo "[ERROR] TCK bundle not found"
-  exit 1
-fi
-
-export TS_HOME=${WORKSPACE}/cdi-tck-glassfish-porting
-
 #Install Glassfish
 echo "Download and install GlassFish ..."
 wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
@@ -49,14 +40,6 @@ if [ -z "${CDI_TCK_BUNDLE_URL}" ]; then
   CDI_TCK_BUNDLE_URL=https://download.eclipse.org/ee4j/cdi/4.0/cdi-tck-4.0.5-dist.zip
 fi
 
-rm -fr glassfish-cdi-porting-tck-master
-wget https://github.com/eclipse-ee4j/glassfish-cdi-porting-tck/archive/master.zip -O glassfish-cdi-porting-tck.zip
-unzip -q -o glassfish-cdi-porting-tck.zip
-cd glassfish-cdi-porting-tck-master
-mvn --global-settings "${TS_HOME}/settings.xml" clean install -DskipTests
-cd $WORKSPACE
-
-
 #Install CDI TCK dist
 echo "Download and unzip CDI TCK dist ..."
 wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
@@ -66,10 +49,7 @@ GROUP_ID=jakarta.enterprise
 CDI_TCK_DIST=cdi-tck-${CDI_TCK_VERSION}
 
 cd ${CDI_TCK_DIST}/artifacts
-mvn --global-settings "${TS_HOME}/settings.xml" install
-
-which ant
-ant -version
+mvn --global-settings "${WORKSPACE}/settings.xml" install
 
 export PATH=$JAVA_HOME/bin:$PATH
 
@@ -84,38 +64,21 @@ mkdir -p ${REPORT}/cdi-$VER
 #Edit Glassfish Security policy
 cat ${WORKSPACE}/docker/CDI.policy >> ${WORKSPACE}/${GF_TOPLEVEL_DIR}/glassfish/domains/domain1/config/server.policy
 
-#Edit test properties
-sed -i'' -e "s#porting.home=.*#porting.home=${TS_HOME}#g" ${TS_HOME}/build.properties
-sed -i'' -e "s#glassfish.home=.*#glassfish.home=${WORKSPACE}/${GF_TOPLEVEL_DIR}/glassfish#g" ${TS_HOME}/build.properties
-if [[ "${PROFILE}" == "web" || "${PROFILE}" == "WEB" ]]; then
-  sed -i'' -e "s#javaee.level=.*#javaee.level=web#g" ${TS_HOME}/build.properties
-else
-  sed -i'' -e "s#javaee.level=.*#javaee.level=full#g" ${TS_HOME}/build.properties
-fi
-sed -i'' -e "s#report.dir=.*#report.dir=${REPORT}#g" ${TS_HOME}/build.properties
-sed -i'' -e "s#admin.user=.*#admin.user=admin#g" ${TS_HOME}/build.properties
-sed -i'' -e "s#cdiextjar=.*#cdiextjar=cdi-tck-ext-lib-${CDI_TCK_VERSION}.jar#g" ${TS_HOME}/build.properties
-sed -i'' -e "s#cdiext.version=.*#cdiext.version=${CDI_TCK_VERSION}#g" ${TS_HOME}/build.properties
-
-cp ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests_bkup.xml 
-cp ${WORKSPACE}/${CDI_TCK_DIST}/artifacts/cdi-tck-web-impl-${CDI_TCK_VERSION}-suite.xml ${TS_HOME}/glassfish-tck-runner/src/test/tck20/tck-tests.xml
-
-
 #Run Tests
-cd ${TS_HOME}
 export MAVEN_OPTS="-Duser.home=$HOME $MAVEN_OPTS"
-ant $ANT_OPTS sigtest
-ant $ANT_OPTS test
-
+cd ${WORKSPACE}/glassfish-tck-runner
+mvn --global-settings ${WORKSPACE}/settings.xml -Pcdi-signature-test process-test-sources
+mvn --global-settings ${WORKSPACE}/settings.xml -U clean dependency:tree verify
 
 #Generate Reports
 echo "<pre>" > ${REPORT}/cdi-$VER-sig/report.html
-cat $REPORT/cdi_sig_test_results.txt >> $REPORT/cdi-$VER-sig/report.html
+cat ${WORKSPACE}/glassfish-tck-runner/target/cdi-sig-report.txt >> $REPORT/cdi-$VER-sig/report.html
 echo "</pre>" >> $REPORT/cdi-$VER-sig/report.html
 cp $REPORT/cdi-$VER-sig/report.html $REPORT/cdi-$VER-sig/index.html
 
 # Copy the test reports to the report directory
-cp -R ${TS_HOME}/glassfish-tck-runner/target/surefire-reports/* ${REPORT}/cdi-${VER}
+cp -R ${WORKSPACE}/glassfish-tck-runner/target/surefire-reports/* ${REPORT}/cdi-${VER}
+cp -R ${WORKSPACE}/glassfish-tck-runner/target/failsafe-reports/* ${REPORT}/cdi-${VER}
 if [[ -f ${REPORT}/cdi-$VER/test-report.html ]];then
   cp ${REPORT}/cdi-$VER/test-report.html ${REPORT}/cdi-${VER}/report.html
 fi
@@ -127,7 +90,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' > $REPORT/cdi-$VER-sig/cdi-$VER-s
 echo '<testsuite tests="TOTAL" failures="FAILED" name="cdi-4.0-sig" time="0" errors="0" skipped="0">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '<testcase classname="CDISigTest" name="cdiSigTest" time="0.2">' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '  <system-out>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
-cat $REPORT/cdi_sig_test_results.txt >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
+cat ${WORKSPACE}/glassfish-tck-runner/target/cdi-sig-report.txt >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '  </system-out>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '</testcase>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
 echo '</testsuite>' >> $REPORT/cdi-$VER-sig/cdi-$VER-sig-junit-report.xml
