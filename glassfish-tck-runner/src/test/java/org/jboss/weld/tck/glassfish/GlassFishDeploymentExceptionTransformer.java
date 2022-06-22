@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2022 Contributors to the Eclipse Foundation.
  * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -18,16 +19,16 @@ package org.jboss.weld.tck.glassfish;
 
 import java.util.List;
 
-import jakarta.enterprise.inject.spi.DefinitionException;
-import jakarta.enterprise.inject.spi.DeploymentException;
-
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.jboss.arquillian.container.spi.client.container.DeploymentExceptionTransformer;
+
+import jakarta.enterprise.inject.spi.DefinitionException;
+import jakarta.enterprise.inject.spi.DeploymentException;
 
 /**
  *
  * See AS7-1197 for more details.
- * 
+ *
  * @see org.jboss.weld.tck.glassfish.GlassFishExtension
  * @author J J Snyder (j.j.snyder@oracle.com)
  */
@@ -42,8 +43,9 @@ public class GlassFishDeploymentExceptionTransformer implements DeploymentExcept
 
     private static final String[] DEFINITION_EXCEPTION_FRAGMENTS = new String[]
             { "CDI definition failure:",
-              "org.jboss.weld.exceptions.DefinitionException" };
+                    "org.jboss.weld.exceptions.DefinitionException" };
 
+    @Override
     public Throwable transform(Throwable throwable) {
 
         // Arquillian sometimes returns InvocationException with nested AS7
