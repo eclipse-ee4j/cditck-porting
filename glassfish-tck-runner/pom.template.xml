@@ -46,6 +46,7 @@
         <httpcomponents.version>4.5.5</httpcomponents.version>
         <version.arquillian_core>1.7.0.Alpha10</version.arquillian_core>
         <jakarta.platform.version>10.0.0</jakarta.platform.version>
+        <htmlunit.version>2.50.0</htmlunit.version>
     </properties>
 
     <repositories>
@@ -209,16 +210,6 @@
             <groupId>net.sourceforge.cssparser</groupId>
             <artifactId>cssparser</artifactId>
             <version>0.9.5</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit-core-js</artifactId>
-            <version>2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>1.9.15</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
@@ -521,30 +512,6 @@
             <version>${version.arquillian_core}</version>
         </dependency>
 
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-cdi-jakarta</artifactId>
-          <version>${version.arquillian_core}</version>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-ejb-jakarta</artifactId>
-          <version>${version.arquillian_core}</version>    
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-resource-jakarta</artifactId>
-          <version>${version.arquillian_core}</version>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jboss.arquillian.testenricher</groupId>
-          <artifactId>arquillian-testenricher-initialcontext</artifactId>
-          <version>${version.arquillian_core}</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.jboss.weld/weld-lite-extension-translator -->
         <dependency>
             <groupId>org.jboss.weld</groupId>
@@ -677,24 +644,6 @@
                     <artifactId>arquillian-parent-glassfish</artifactId>
                     <version>1.0.2</version>
                     <type>pom</type>
-                    <exclusions>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-cdi-jakarta</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-ejb-jakarta</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-resource-jakarta</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>
-                        <exclusion>
-                            <artifactId>arquillian-testenricher-initialcontext</artifactId>
-                            <groupId>org.jboss.arquillian.testenricher</groupId>
-                        </exclusion>    
-                    </exclusions>
                 </dependency> 
                 <dependency>
                     <groupId>org.jboss.arquillian.protocol</groupId>
