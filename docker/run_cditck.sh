@@ -50,9 +50,11 @@ CDI_TCK_DIST=cdi-tck-${CDI_TCK_VERSION}
 
 cd ${CDI_TCK_DIST}/artifacts
 mvn --global-settings "${WORKSPACE}/settings.xml" install
+mvn --global-settings ${WORKSPACE}/settings.xml org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+  -Dfile=${WORKSPACE}/cdi-tck-4.0.5/artifacts/cdi-tck-core-impl-4.0.5-sigtest-jdk11.sig -DgroupId=${GROUP_ID} \
+  -DartifactId=cdi-tck-core-impl -Dpackaging=sig -Dclassifier=jdk11 -Dversion=${CDI_TCK_VERSION}
 
 export PATH=$JAVA_HOME/bin:$PATH
-
 which java
 java -version
 
