@@ -29,7 +29,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 #Install Glassfish
 echo "Download and install GlassFish ..."
-wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
+#wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
 unzip -q -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
 if [ -z "${CDI_TCK_VERSION}" ]; then
@@ -42,7 +42,7 @@ fi
 
 #Install CDI TCK dist
 echo "Download and unzip CDI TCK dist ..."
-wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
+#wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
 unzip -q -o ${WORKSPACE}/latest-cdi-tck-dist.zip -d ${WORKSPACE}/
 
 GROUP_ID=jakarta.enterprise
@@ -50,9 +50,11 @@ CDI_TCK_DIST=cdi-tck-${CDI_TCK_VERSION}
 
 cd ${CDI_TCK_DIST}/artifacts
 mvn --global-settings "${WORKSPACE}/settings.xml" install
+mvn --global-settings ${WORKSPACE}/settings.xml org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+  -Dfile=${WORKSPACE}/cdi-tck-4.0.5/artifacts/cdi-tck-core-impl-4.0.5-sigtest-jdk11.sig -DgroupId=${GROUP_ID} \
+  -DartifactId=cdi-tck-core-impl -Dpackaging=sig -Dclassifier=jdk11 -Dversion=${CDI_TCK_VERSION}
 
 export PATH=$JAVA_HOME/bin:$PATH
-
 which java
 java -version
 
