@@ -29,7 +29,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 #Install Glassfish
 echo "Download and install GlassFish ..."
-#wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
+wget --progress=bar:force --no-cache $GF_BUNDLE_URL -O ${WORKSPACE}/latest-glassfish.zip
 unzip -q -o ${WORKSPACE}/latest-glassfish.zip -d ${WORKSPACE}
 
 if [ -z "${CDI_TCK_VERSION}" ]; then
@@ -42,7 +42,7 @@ fi
 
 #Install CDI TCK dist
 echo "Download and unzip CDI TCK dist ..."
-#wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
+wget --progress=bar:force --no-cache $CDI_TCK_BUNDLE_URL -O latest-cdi-tck-dist.zip
 unzip -q -o ${WORKSPACE}/latest-cdi-tck-dist.zip -d ${WORKSPACE}/
 
 GROUP_ID=jakarta.enterprise
